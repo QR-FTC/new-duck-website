@@ -1,0 +1,361 @@
+/* ============================================================
+   NETWORK PAGE STYLES — FTC Roster
+============================================================ */
+
+/* ─── Hero ── */
+.network-hero {
+  position: relative;
+  background: var(--black-mid);
+  padding: calc(var(--nav-height) + 4rem) 0 6rem;
+  overflow: hidden;
+  text-align: center;
+}
+
+.network-hero__bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(245,196,0,0.07) 0%, transparent 60%);
+}
+
+/* Animated scan lines */
+.network-hero__lines {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.network-hero__line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(245,196,0,0.15) 50%, transparent 100%);
+  top: 20%;
+  animation: scanDown 8s linear infinite;
+  opacity: 0;
+}
+
+@keyframes scanDown {
+  0%   { top: -5%; opacity: 0;   }
+  5%   { opacity: 1;             }
+  95%  { opacity: 1;             }
+  100% { top: 110%; opacity: 0;  }
+}
+
+.network-hero__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.network-hero__title {
+  max-width: 700px;
+}
+
+.network-hero__sub {
+  max-width: 520px;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.network-hero__count {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-top: 0.5rem;
+}
+
+.network-hero__count-num {
+  font-family: var(--font-headline);
+  font-weight: 900;
+  font-size: 4rem;
+  color: var(--yellow);
+  line-height: 1;
+  text-shadow: 0 0 40px var(--yellow-glow);
+}
+
+.network-hero__count-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--white-dim);
+}
+
+/* ─── Roster Grid ── */
+.network-roster {
+  background: var(--black);
+}
+
+.network-roster__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+/* ─── Team Card ── */
+.network-card {
+  --team-accent: #F5C400;
+  --team-glow:   rgba(245, 196, 0, 0.3);
+
+  position: relative;
+  background: var(--black-card);
+  border: 1px solid var(--black-border);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 2rem;
+
+  /* Entrance animation */
+  opacity: 0;
+  animation: fadeInUp 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+
+  /* Scale + glow on hover */
+  transition:
+    transform 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
+
+  cursor: default;
+}
+
+.network-card--hovered {
+  transform: scale(1.025) translateY(-6px);
+  box-shadow:
+    0 20px 60px var(--team-glow),
+    0 0 0 1px var(--team-accent),
+    inset 0 0 40px rgba(0,0,0,0.5);
+  border-color: var(--team-accent);
+}
+
+/* Top accent bar */
+.network-card__accent-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--team-accent);
+  transition: height 0.2s ease;
+}
+
+.network-card--hovered .network-card__accent-bar {
+  height: 4px;
+}
+
+/* Corner tag */
+.network-card__corner-tag {
+  position: absolute;
+  top: 12px;
+  right: 0;
+  background: var(--team-accent);
+  color: var(--black);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  padding: 3px 10px;
+  clip-path: polygon(6px 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+/* Header */
+.network-card__header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.network-card__logo-wrap {
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 2px solid var(--team-accent);
+  transition: box-shadow 0.2s ease;
+}
+
+.network-card--hovered .network-card__logo-wrap {
+  box-shadow: 0 0 20px var(--team-glow);
+}
+
+.network-card__logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.network-card__identity {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.network-card__number {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--team-accent);
+  letter-spacing: 0.15em;
+}
+
+.network-card__name {
+  color: var(--white);
+  line-height: 1.1;
+}
+
+.network-card__location {
+  font-size: 0.8rem;
+  color: var(--white-dim);
+  margin-top: 2px;
+}
+
+/* Stats Row */
+.network-card__stats {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--black-border);
+  overflow: hidden;
+}
+
+.network-card__stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 0.75rem 0.5rem;
+  border-right: 1px solid var(--black-border);
+  transition: background 0.15s ease;
+}
+
+.network-card__stat:last-child {
+  border-right: none;
+}
+
+.network-card--hovered .network-card__stat {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.network-card__stat-val {
+  font-family: var(--font-headline);
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--team-accent);
+  line-height: 1;
+}
+
+.network-card__stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white-dim);
+}
+
+/* Bio */
+.network-card__bio {
+  font-size: 0.875rem;
+  color: var(--white-muted);
+  line-height: 1.75;
+}
+
+/* Skills */
+.network-card__skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.network-card__skill {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--team-accent);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--team-accent);
+  padding: 3px 10px;
+  transition: background 0.15s ease;
+}
+
+.network-card--hovered .network-card__skill {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Achievements */
+.network-card__achievements {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--black-border);
+}
+
+.network-card__achievement {
+  font-size: 0.8rem;
+  color: var(--white-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Glow ring on hover */
+.network-card__glow-ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--team-accent);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  box-shadow: inset 0 0 30px var(--team-glow);
+}
+
+.network-card--hovered .network-card__glow-ring {
+  opacity: 0.5;
+}
+
+/* ─── Join CTA ── */
+.network-join {
+  background: var(--black-mid);
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+}
+
+.network-join__bg {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 60px,
+      rgba(245,196,0,0.02) 60px,
+      rgba(245,196,0,0.02) 61px
+    );
+}
+
+.network-join__content {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Responsive ── */
+@media (max-width: 900px) {
+  .network-roster__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .network-card {
+    padding: 1.5rem;
+  }
+}
