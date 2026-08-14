@@ -3,6 +3,7 @@
    Tokens: bg #0F172A · panel #111827 · border #1E293B
            accent (duck yellow) #F5C400
            text primary #E2E8F0 · text muted #94A3B8
+           platinum #E5E4E2
    ──────────────────────────────────────────────────────────── */
 
 .support-modal__backdrop {
@@ -20,37 +21,28 @@
 }
 
 @keyframes support-modal-fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .support-modal {
   position: relative;
   width: 100%;
-  max-width: 480px;
+  max-width: 780px; /* Widened to fit the two cards beautifully */
   max-height: calc(100vh - 48px);
   overflow-y: auto;
   background: #111827;
   border: 1px solid #1e293b;
   padding: 40px;
+  border-radius: 12px;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color: #e2e8f0;
   animation: support-modal-rise 0.25s ease;
 }
 
 @keyframes support-modal-rise {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -71,16 +63,24 @@
   justify-content: center;
   background: transparent;
   border: 1px solid #1e293b;
+  border-radius: 50%;
   color: #94a3b8;
   cursor: pointer;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  transition: color 0.15s ease, border-color 0.15s ease, transform 0.2s ease;
 }
 
 .support-modal__close:hover,
 .support-modal__close:focus-visible {
   color: #f5c400;
   border-color: #f5c400;
+  transform: rotate(90deg);
   outline: none;
+}
+
+/* ── Header ── */
+.support-modal__header {
+  text-align: center;
+  margin-bottom: 32px;
 }
 
 .support-modal__eyebrow {
@@ -89,125 +89,123 @@
   font-size: 12px;
   letter-spacing: 0.14em;
   color: #f5c400;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .support-modal__title {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.15;
-  margin: 0 0 24px 0;
+  margin: 0 0 16px 0;
   text-transform: uppercase;
-  padding-right: 32px;
 }
 
-.support-modal__section {
-  border-top: 1px solid #1e293b;
-  padding-top: 24px;
-}
-
-.support-modal__section-title {
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #f5c400;
-  margin: 0 0 12px 0;
-}
-
-.support-modal__body {
+.support-modal__subtitle {
   font-size: 15px;
   line-height: 1.65;
-  color: #cbd5e1;
-  margin: 0 0 16px 0;
-}
-
-.support-modal__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.support-modal__list-item {
-  position: relative;
-  padding-left: 20px;
-  font-size: 14.5px;
-  line-height: 1.55;
-  color: #cbd5e1;
-}
-
-.support-modal__list-item::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 8px;
-  width: 8px;
-  height: 1px;
-  background: #f5c400;
-}
-
-.support-modal__actions {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 32px;
-}
-
-.support-modal__btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 14px 20px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-}
-
-.support-modal__btn--primary {
-  background: #f5c400;
-  color: #0f172a;
-  border-color: #f5c400;
-}
-
-.support-modal__btn--primary:hover,
-.support-modal__btn--primary:focus-visible {
-  background: #ffd633;
-  border-color: #ffd633;
-  outline: none;
-}
-
-.support-modal__btn--secondary {
-  background: transparent;
   color: #94a3b8;
-  border-color: #1e293b;
+  margin: 0 auto;
+  max-width: 540px;
 }
 
-.support-modal__btn--secondary:hover,
-.support-modal__btn--secondary:focus-visible {
-  color: #e2e8f0;
-  border-color: #94a3b8;
+/* ── Split Grid ── */
+.support-modal__split-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* ── Cards ── */
+.support-modal__card {
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  padding: 32px 24px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Corporate Hover - Yellow Glow */
+.support-modal__card--sponsor:hover,
+.support-modal__card--sponsor:focus-visible {
+  border-color: rgba(245, 196, 0, 0.5);
+  background: linear-gradient(180deg, rgba(245, 196, 0, 0.05) 0%, transparent 100%);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(245, 196, 0, 0.1);
   outline: none;
+}
+
+/* Donate Hover - Platinum Glow */
+.support-modal__card--donate:hover,
+.support-modal__card--donate:focus-visible {
+  border-color: rgba(229, 228, 226, 0.4);
+  background: linear-gradient(180deg, rgba(229, 228, 226, 0.05) 0%, transparent 100%);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(229, 228, 226, 0.1);
+  outline: none;
+}
+
+.support-modal__card-icon {
+  margin-bottom: 20px;
+  display: inline-flex;
+}
+.support-modal__card--sponsor .support-modal__card-icon { color: #f5c400; }
+.support-modal__card--donate .support-modal__card-icon { color: #E5E4E2; }
+
+.support-modal__card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.01em;
+}
+
+.support-modal__card-desc {
+  color: #94a3b8;
+  font-size: 14.5px;
+  line-height: 1.6;
+  margin: 0 0 24px 0;
+  flex-grow: 1; /* Pushes the bottom CTA link down */
+}
+
+.support-modal__card-cta {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+
+.support-modal__cta--yellow { color: #f5c400; }
+.support-modal__cta--platinum { color: #E5E4E2; }
+
+.support-modal__card:hover .support-modal__card-cta,
+.support-modal__card:focus-visible .support-modal__card-cta {
+  transform: translateX(4px);
 }
 
 /* ── Responsive ── */
-
-@media (max-width: 520px) {
+@media (max-width: 640px) {
   .support-modal {
-    padding: 28px 22px;
+    padding: 32px 20px;
   }
-
+  
   .support-modal__title {
     font-size: 24px;
   }
-}   
+  
+  .support-modal__split-grid {
+    grid-template-columns: 1fr; /* Stacks the cards vertically */
+  }
+  
+  .support-modal__card {
+    padding: 24px 20px;
+  }
+}

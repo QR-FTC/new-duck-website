@@ -1,6 +1,5 @@
 /* ============================================================
-   NAVBAR — Team Duck 30473
-   Professional rebrand: clean, legible, minimal accent use
+   NAVBAR — Professional Rebrand
 ============================================================ */
 
 .navbar {
@@ -9,95 +8,102 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  height: var(--nav-height);
+  height: 80px; /* Explicit height to anchor the absolute centering */
   background: rgba(11, 17, 32, 0.85);
   backdrop-filter: blur(14px) saturate(1.4);
   -webkit-backdrop-filter: blur(14px) saturate(1.4);
-  border-bottom: 1px solid var(--border-subtle);
-  transition: background var(--transition-base), border-color var(--transition-base);
+  border-bottom: 1px solid var(--border-subtle, #1f2937);
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .navbar--scrolled {
   background: rgba(11, 17, 32, 0.97);
-  border-bottom-color: var(--border-default);
+  border-bottom-color: rgba(245, 196, 0, 0.2); /* Subtle yellow glow on scroll */
 }
 
 /* ── Inner layout ── */
 .navbar__inner {
+  position: relative; /* Required for centering the links */
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  padding: 0 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 /* ── Logo ── */
 .navbar__logo {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
-  flex-shrink: 0;
-  transition: opacity var(--transition-fast);
+  gap: 0.75rem;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+  z-index: 2; /* Keeps logo clickable above absolute links */
 }
-.navbar__logo:hover { opacity: 0.8; }
 
-.navbar__logo-icon {
-  width: 36px;
-  height: 36px;
-  background: var(--yellow);
-  border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.navbar__logo:hover { 
+  opacity: 0.85; 
 }
-.navbar__logo-duck {
-  font-size: 1.2rem;
-  line-height: 1;
+
+.navbar__duck-img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  border-radius: 50%;
 }
 
 .navbar__logo-text {
   display: flex;
   flex-direction: column;
-  line-height: 1;
-  gap: 2px;
-}
-.navbar__logo-name {
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--text-primary);
-  text-transform: uppercase;
-}
-.navbar__logo-number {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.18em;
-  color: var(--text-muted);
+  justify-content: center;
 }
 
-/* ── Desktop Links ── */
+.navbar__logo-name {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  line-height: 1.1;
+  color: #ffffff;
+}
+
+.navbar__logo-number {
+  font-family: var(--font-mono, monospace);
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: var(--text-muted, #94a3b8);
+}
+
+/* ── Desktop Links (Perfectly Centered) ── */
 .navbar__links {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: 2rem;
-  margin-left: auto;
-  margin-right: 1.5rem;
+  gap: 3rem;
+  z-index: 1;
 }
 
 .navbar__link {
-  font-size: 0.875rem;
+  font-size: 18px;
   font-weight: 500;
-  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  color: var(--text-muted, #94a3b8);
+  text-decoration: none;
   position: relative;
-  padding-bottom: 3px;
-  transition: color var(--transition-fast);
+  padding-bottom: 4px;
+  transition: color 0.2s ease;
   white-space: nowrap;
 }
+
 .navbar__link:hover {
-  color: var(--text-primary);
+  color: #ffffff;
 }
+
 .navbar__link--active {
-  color: var(--yellow);
+  color: var(--yellow, #F5C400);
 }
 
 /* Underline indicator */
@@ -106,169 +112,121 @@
   bottom: 0;
   left: 0;
   width: 0;
-  height: 1.5px;
-  background: var(--yellow);
+  height: 2px;
+  background: var(--yellow, #F5C400);
   border-radius: 2px;
-  transition: width var(--transition-base);
+  transition: width 0.3s ease;
 }
+
 .navbar__link:hover .navbar__link-underline,
 .navbar__link--active .navbar__link-underline {
   width: 100%;
 }
 
-/* ── CTA ── */
+/* ── Desktop CTA ── */
 .navbar__cta {
-  font-size: 0.82rem;
-  padding: 0.5rem 1.25rem;
-  flex-shrink: 0;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 10px 24px;
+  letter-spacing: 0.5px;
+  z-index: 2; /* Keeps button clickable */
+  background-color: var(--yellow, #F5C400);
+  color: #0b1120;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
 
-/* ── Hamburger ── */
+.navbar__cta:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+/* ── Mobile Hamburger ── */
 .navbar__hamburger {
   display: none;
   flex-direction: column;
   justify-content: space-between;
-  width: 26px;
-  height: 18px;
+  width: 28px;
+  height: 20px;
   background: transparent;
+  border: none;
   padding: 0;
-  flex-shrink: 0;
+  cursor: pointer;
+  z-index: 1001;
 }
+
 .bar {
   display: block;
   width: 100%;
-  height: 1.5px;
-  background: var(--text-secondary);
+  height: 2px;
+  background: #ffffff;
   border-radius: 2px;
-  transition: transform 0.22s ease, opacity 0.22s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
   transform-origin: center;
 }
-.navbar__hamburger--open .bar-top    { transform: translateY(8px) rotate(45deg); }
-.navbar__hamburger--open .bar-middle { opacity: 0; transform: scaleX(0); }
-.navbar__hamburger--open .bar-bottom { transform: translateY(-8px) rotate(-45deg); }
 
-/* ── Mobile Menu ── */
+.navbar__hamburger--open .bar-top    { transform: translateY(9px) rotate(45deg); }
+.navbar__hamburger--open .bar-middle { opacity: 0; transform: scaleX(0); }
+.navbar__hamburger--open .bar-bottom { transform: translateY(-9px) rotate(-45deg); }
+
+/* ── Mobile Menu Dropdown ── */
 .navbar__mobile {
   display: none;
   flex-direction: column;
-  background: var(--bg-surface);
-  border-top: 1px solid var(--border-subtle);
-  padding: 0 1.75rem;
-  gap: 0;
+  background: rgba(11, 17, 32, 0.98);
+  border-top: 1px solid var(--border-subtle, #1f2937);
+  padding: 0 2rem;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s var(--ease), padding var(--transition-base);
+  transition: max-height 0.4s ease, padding 0.4s ease;
 }
+
 .navbar__mobile--open {
-  max-height: 360px;
-  padding: 1rem 1.75rem 1.5rem;
+  max-height: 400px;
+  padding: 1.5rem 2rem 2.5rem;
 }
 
 .navbar__mobile-link {
-  font-size: 1.05rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  padding: 0.7rem 0;
-  border-bottom: 1px solid var(--border-subtle);
-  transition: color var(--transition-fast);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-muted, #94a3b8);
+  padding: 1rem 0;
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-subtle, #1f2937);
+  transition: color 0.2s ease;
 }
+
 .navbar__mobile-link:hover,
 .navbar__mobile-link--active {
-  color: var(--yellow);
+  color: var(--yellow, #F5C400);
 }
 
 .navbar__mobile-cta {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   align-self: flex-start;
+  font-size: 1.1rem;
+  padding: 12px 28px;
+  background-color: var(--yellow, #F5C400);
+  color: #0b1120;
+  font-weight: 700;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
 }
 
-/* ── Responsive ── */
-@media (max-width: 768px) {
+/* ── Responsive Breakpoints ── */
+@media (max-width: 950px) {
+  /* Hide desktop elements */
   .navbar__links,
-  .navbar__cta { display: none; }
-
-  .navbar__hamburger,
-  .navbar__mobile { display: flex; }
-}
-/* ── Override: Duck Logo Sizing ── */
-.navbar__duck-img {
-  width: 36px;
-  height: 36px;
-  object-fit: contain;
-  border-radius: 6px; /* Optional: adds a slight curve to the corners */
-}
-
-/* Removes the yellow background if it's currently hardcoded into the icon div */
-.navbar__logo-icon {
-  background: transparent !important;
-}
-/* ── OVERRIDE: NAVBAR SIZING & CENTERING ── */
-
-/* 1. Ensure the parent container can anchor the centered links */
-.navbar,
-.navbar__container { 
-  position: relative !important; 
-}
-
-/* 2. Size up the Duck logo */
-.navbar__duck-img {
-  width: 52px !important; /* Bumped up from 36px */
-  height: 52px !important;
-  object-fit: contain;
-  border-radius: 50%; /* Optional: Makes the black background a perfect circle */
-}
-
-/* 3. Size up the Logo Text */
-.navbar__logo-text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.navbar__logo-name {
-  font-size: 24px !important;
-  font-weight: 800 !important;
-  letter-spacing: 1px !important;
-  line-height: 1.1 !important;
-}
-
-.navbar__logo-number {
-  font-size: 14px !important;
-  letter-spacing: 3px !important;
-}
-
-/* 4. Perfectly center the navigation links (Desktop Only) */
-/* Note: If your links use a different class name, swap out '.navbar__links' */
-@media (min-width: 860px) {
-  .navbar__links,
-  .navbar__menu,
-  nav ul { 
-    position: absolute !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    display: flex !important;
-    gap: 3rem !important; /* Gives the links plenty of breathing room */
-    align-items: center;
-    margin: 0 !important;
-    padding: 0 !important;
+  .navbar__cta { 
+    display: none; 
   }
-}
-/* 5. Size up the Navigation Links */
-.navbar__links a,
-.navbar__menu a,
-nav ul li a {
-  font-size: 18px !important; /* Bumps text size up */
-  font-weight: 500 !important;
-  letter-spacing: 0.5px !important;
-  transition: all 0.2s ease;
-}
-
-/* 6. Beef up the "Support Us" Button */
-.navbar__button, 
-.navbar__btn,
-.btn {
-  font-size: 18px !important;
-  font-weight: 700 !important;
-  padding: 12px 28px !important; /* Makes the physical button block wider and taller */
-  letter-spacing: 0.5px !important;
+  
+  /* Show mobile elements */
+  .navbar__hamburger,
+  .navbar__mobile { 
+    display: flex; 
+  }
 }

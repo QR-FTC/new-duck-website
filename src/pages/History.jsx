@@ -1,30 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import './Home.css';
 import './History.css';
 
 /* ===============================================================
-   SCROLL REVEAL HOOK
-   Uses IntersectionObserver — no external libraries
-=============================================================== */
-function useReveal(threshold = 0.12) {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [threshold]);
-
-  return [ref, visible];
-}
-
-/* ===============================================================
-   TROPHY ICON — inline SVG, no emoji
+   TROPHY ICON
 =============================================================== */
 function TrophyIcon({ className }) {
   return (
@@ -48,7 +27,6 @@ function TrophyIcon({ className }) {
 
 /* ===============================================================
    DATA
-   Team 30473 · East Bay League, Dublin CA — exclusively.
 =============================================================== */
 const SEASONS = [
   {
@@ -56,27 +34,27 @@ const SEASONS = [
     index:     '01',
     game:      'BIOBUZZ',
     robot:     'TBD',
-    yearRange: '2026–2027',
+    yearRange: '2026-2027',
     seasonTag: 'CURRENT SEASON',
-    league:    'East Bay League · Dublin, CA',
+    league:    'East Bay League: Dublin, CA',
     type:      'upcoming',
     intro:
       'Our second competitive season is in active development. We are carrying forward what ' +
-      'we learned during the Decode campaign — refined Pedro Pathing motion profiles, a ' +
+      'we learned during the Decode campaign: refined Pedro Pathing motion profiles, a ' +
       'revised autonomous strategy, and a stronger mechanical package built on our NextFTC ' +
       'architecture for the Biobuzz game challenge.',
     stats: [
       { val: '4', label: 'Events Scheduled' },
-      { val: '—', label: 'Matches Played'   },
-      { val: '—', label: 'Current Rank'     },
-      { val: '—', label: 'Awards'           },
+      { val: '-', label: 'Matches Played'   },
+      { val: '-', label: 'Current Rank'     },
+      { val: '-', label: 'Awards'           },
     ],
     events: [
       {
         id:      'biobuzz-meet-1',
         index:   '01',
-        name:    'East Bay League — Meet 1',
-        date:    'Fall 2026',
+        name:    'East Bay League: Meet 1',
+        date:    'Nov 2026',
         venue:   'East Bay Region, CA',
         status:  'upcoming',
         result:  'TBD',
@@ -88,8 +66,8 @@ const SEASONS = [
       {
         id:      'biobuzz-meet-2',
         index:   '02',
-        name:    'East Bay League — Meet 2',
-        date:    'Winter 2026',
+        name:    'East Bay League: Meet 2',
+        date:    'Dec 2026',
         venue:   'East Bay Region, CA',
         status:  'upcoming',
         result:  'TBD',
@@ -101,8 +79,8 @@ const SEASONS = [
       {
         id:      'biobuzz-meet-3',
         index:   '03',
-        name:    'East Bay League — Meet 3',
-        date:    'Winter 2026',
+        name:    'East Bay League: Meet 3',
+        date:    'Jan 2027',
         venue:   'East Bay Region, CA',
         status:  'upcoming',
         result:  'TBD',
@@ -115,13 +93,13 @@ const SEASONS = [
         id:      'biobuzz-tournament',
         index:   '04',
         name:    'East Bay League Tournament',
-        date:    'Early 2027',
+        date:    'Feb 2027',
         venue:   'East Bay Region, CA',
         status:  'upcoming',
         result:  'TBD',
         isAward: false,
         detail:
-          'Our second League Tournament appearance — the first chance to build on the standard ' +
+          'Our second League Tournament appearance, and the first chance to build on the standard ' +
           'set during the Decode season.',
       },
     ],
@@ -131,9 +109,9 @@ const SEASONS = [
     index:     '02',
     game:      'DECODE',
     robot:     'Pegasus',
-    yearRange: '2025–2026',
+    yearRange: '2025-2026',
     seasonTag: 'COMPLETED SEASON',
-    league:    'East Bay League · Dublin, CA',
+    league:    'East Bay League: Dublin, CA',
     type:      'completed',
     intro:
       'Our first competitive season. Pegasus was designed in Onshape CAD and built on a ' +
@@ -164,8 +142,8 @@ const SEASONS = [
       {
         id:      'meet-1',
         index:   '01',
-        name:    'East Bay League — Meet 1',
-        date:    'Oct 2025',
+        name:    'East Bay League: Meet 1',
+        date:    'Nov 2025',
         venue:   'East Bay Region, CA',
         status:  'debut',
         result:  'Participated',
@@ -178,8 +156,8 @@ const SEASONS = [
       {
         id:      'meet-2',
         index:   '02',
-        name:    'East Bay League — Meet 2',
-        date:    'Nov 2025',
+        name:    'East Bay League: Meet 2',
+        date:    'Dec 2025',
         venue:   'East Bay Region, CA',
         status:  'competed',
         result:  'Participated',
@@ -192,8 +170,8 @@ const SEASONS = [
       {
         id:      'meet-3',
         index:   '03',
-        name:    'East Bay League — Meet 3',
-        date:    'Dec 2025',
+        name:    'East Bay League: Meet 3',
+        date:    'Jan 2026',
         venue:   'East Bay Region, CA',
         status:  'competed',
         result:  'Participated',
@@ -207,7 +185,7 @@ const SEASONS = [
         id:      'tournament',
         index:   '04',
         name:    'East Bay League Tournament',
-        date:    'Jan 2026',
+        date:    'Feb 2026',
         venue:   'East Bay Region, CA',
         status:  'award',
         result:  'Connect Award',
@@ -246,21 +224,15 @@ function Tag({ status }) {
    CONNECT AWARD BLOCK
 =============================================================== */
 function ConnectAwardBlock({ award, game }) {
-  const [ref, visible] = useReveal(0.1);
   return (
-    <div
-      ref={ref}
-      className={`award-block reveal${visible ? ' revealed' : ''}`}
-      id="connect-award"
-      aria-label="Connect Award detail"
-    >
+    <div className="award-block hover-card" id="connect-award" aria-label="Connect Award detail">
       <div className="award-block__inner">
         <div className="award-block__heading">
           <TrophyIcon className="award-block__trophy" />
           <div>
-            <p className="award-block__eyebrow">Highest Achievement · {game} Season</p>
+            <p className="award-block__eyebrow">Highest Achievement: {game} Season</p>
             <h3 className="award-block__title">
-              {award.name} <span className="acc-yellow">— Winner</span>
+              {award.name} <span className="acc-yellow">: Winner</span>
             </h3>
           </div>
         </div>
@@ -279,12 +251,9 @@ function ConnectAwardBlock({ award, game }) {
 }
 
 /* ===============================================================
-   EVENT CARD (inside accordion)
+   EVENT CARD 
 =============================================================== */
-function EventCard({ event, robot, delay }) {
-  const [ref, visible] = useReveal(0.08);
-
-  /* Highlight first occurrence of robot name in yellow */
+function EventCard({ event, robot }) {
   const renderDetail = () => {
     if (!robot || robot === 'TBD') return event.detail;
     const idx = event.detail.indexOf(robot);
@@ -300,16 +269,11 @@ function EventCard({ event, robot, delay }) {
 
   return (
     <article
-      ref={ref}
       id={event.id}
-      className={`ev-card${event.isAward ? ' ev-card--award' : ''} reveal${visible ? ' revealed' : ''}`}
-      style={{ transitionDelay: `${delay * 70}ms` }}
+      className={`ev-card hover-card${event.isAward ? ' ev-card--award' : ''}`}
       aria-label={event.name}
     >
-      {/* Left: index */}
       <div className="ev-card__idx" aria-hidden="true">{event.index}</div>
-
-      {/* Center: content */}
       <div className="ev-card__body">
         <div className="ev-card__top">
           <div className="ev-card__title-group">
@@ -324,8 +288,6 @@ function EventCard({ event, robot, delay }) {
         </div>
         <p className="ev-card__detail">{renderDetail()}</p>
       </div>
-
-      {/* Right: result */}
       <div className="ev-card__result-col">
         <span className={`ev-card__result${event.isAward ? ' ev-card__result--award' : event.status === 'upcoming' ? ' ev-card__result--pending' : ''}`}>
           {event.status === 'upcoming' ? 'Pending' : event.result}
@@ -336,7 +298,7 @@ function EventCard({ event, robot, delay }) {
 }
 
 /* ===============================================================
-   STATS STRIP (inside accordion)
+   STATS STRIP
 =============================================================== */
 function StatsStrip({ stats }) {
   return (
@@ -352,126 +314,106 @@ function StatsStrip({ stats }) {
 }
 
 /* ===============================================================
-   ACCORDION ITEM — full-width expandable season block
+   ACCORDION ITEM
 =============================================================== */
 function AccordionItem({ season, isOpen, onToggle }) {
-  const [headerRef, headerVisible] = useReveal(0.1);
-  const panelRef = useRef(null);
-
-  /* Animate panel height */
-  useEffect(() => {
-    const el = panelRef.current;
-    if (!el) return;
-    if (isOpen) {
-      el.style.maxHeight = el.scrollHeight + 'px';
-    } else {
-      el.style.maxHeight = '0px';
-    }
-  }, [isOpen]);
-
   return (
-    <div className={`acc-item${isOpen ? ' acc-item--open' : ''}`} id={`acc-${season.id}`}>
-
-      {/* ACCORDION HEADER */}
+    <div className={`acc-item hover-card${isOpen ? ' acc-item--open' : ''}`} id={`acc-${season.id}`}>
       <button
-        ref={headerRef}
         type="button"
-        className={`acc-header reveal${headerVisible ? ' revealed' : ''}`}
+        className="acc-header"
         onClick={onToggle}
         aria-expanded={isOpen}
         aria-controls={`acc-panel-${season.id}`}
         id={`acc-trigger-${season.id}`}
       >
-        {/* Index */}
         <span className="acc-header__index" aria-hidden="true">
           {season.index}
         </span>
-
-        {/* Center: season identity (stacked: yearRange + seasonTag above game name) */}
         <div className="acc-header__identity">
           <span className="acc-header__supertitle">
             {season.yearRange}&nbsp;&nbsp;•&nbsp;&nbsp;{season.seasonTag}
           </span>
           <span className="acc-header__game">{season.game}</span>
         </div>
-
-        {/* Right: league tag + chevron */}
         <div className="acc-header__right">
           <span className="acc-header__league">{season.league}</span>
           <span className="acc-header__chevron" aria-hidden="true">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <path
-                d="M4 7L9 12L14 7"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+              <path d="M4 7L9 12L14 7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </span>
         </div>
       </button>
 
-      {/* ACCORDION PANEL */}
+      {/* Modern CSS-Grid Accordion Wrapper */}
       <div
-        ref={panelRef}
         id={`acc-panel-${season.id}`}
         className="acc-panel"
         role="region"
         aria-labelledby={`acc-trigger-${season.id}`}
       >
-        <div className="acc-panel__inner">
+        <div className="acc-panel__inner-wrapper">
+          <div className="acc-panel__inner">
+            <div className="acc-panel__overview">
+              <div className="acc-panel__intro-col">
+                <p className="acc-panel__eyebrow">
+                  {season.robot !== 'TBD'
+                    ? <>Robot: <span className="acc-yellow">{season.robot}</span></>
+                    : 'Robot: TBD'
+                  }
+                </p>
+                <p className="acc-panel__intro">{season.intro}</p>
+              </div>
+              <StatsStrip stats={season.stats} />
+            </div>
 
-          {/* Intro + stats */}
-          <div className="acc-panel__overview">
-            <div className="acc-panel__intro-col">
-              <p className="acc-panel__eyebrow">
-                {season.robot !== 'TBD'
-                  ? <>Robot: <span className="acc-yellow">{season.robot}</span></>
-                  : 'Robot: TBD'
-                }
+            {season.award && (
+              <div className="acc-award-pill">
+                <TrophyIcon className="acc-award-pill__icon" />
+                <span className="acc-award-pill__name">{season.award.name}</span>
+                <span className="acc-award-pill__event">{season.award.event}</span>
+              </div>
+            )}
+
+            <div className="acc-panel__feed" role="list" aria-label={`${season.game} events`}>
+              <p className="acc-panel__feed-label">Event Feed</p>
+              {season.events.map((event) => (
+                <EventCard key={event.id} event={event} robot={season.robot} />
+              ))}
+            </div>
+
+            {season.award && <ConnectAwardBlock award={season.award} game={season.game} />}
+
+            {season.type === 'upcoming' && (
+              <p className="acc-panel__upcoming-note">
+                Results and recaps will appear here after each event concludes.
               </p>
-              <p className="acc-panel__intro">{season.intro}</p>
-            </div>
-            <StatsStrip stats={season.stats} />
+            )}
           </div>
-
-          {/* Award pill */}
-          {season.award && (
-            <div className="acc-award-pill">
-              <TrophyIcon className="acc-award-pill__icon" />
-              <span className="acc-award-pill__name">{season.award.name}</span>
-              <span className="acc-award-pill__event">{season.award.event}</span>
-            </div>
-          )}
-
-          {/* Event cards — CSS Grid layout inside each card */}
-          <div className="acc-panel__feed" role="list" aria-label={`${season.game} events`}>
-            <p className="acc-panel__feed-label">Event Feed</p>
-            {season.events.map((event, i) => (
-              <EventCard
-                key={event.id}
-                event={event}
-                robot={season.robot}
-                delay={i}
-              />
-            ))}
-          </div>
-
-          {/* Connect Award block */}
-          {season.award && (
-            <ConnectAwardBlock award={season.award} game={season.game} />
-          )}
-
-          {/* Upcoming notice */}
-          {season.type === 'upcoming' && (
-            <p className="acc-panel__upcoming-note">
-              Results and recaps will appear here after each event concludes.
-            </p>
-          )}
-
         </div>
       </div>
+    </div>
+  );
+}
+
+/* ===============================================================
+   ACCORDION CONTAINER (State Isolation to stop disappearing bugs)
+=============================================================== */
+function AccordionContainer() {
+  const [openId, setOpenId] = useState('decode');
+  const toggle = (id) => setOpenId((cur) => (cur === id ? null : id));
+
+  return (
+    <div className="hist-acc__list">
+      {SEASONS.map((season) => (
+        <AccordionItem
+          key={season.id}
+          season={season}
+          isOpen={openId === season.id}
+          onToggle={() => toggle(season.id)}
+        />
+      ))}
     </div>
   );
 }
@@ -480,29 +422,39 @@ function AccordionItem({ season, isOpen, onToggle }) {
    PAGE
 =============================================================== */
 export default function History() {
-  const [openId, setOpenId] = useState('biobuzz');
+  
+  // Global Engine: Animates anything with className="reveal"
+  useEffect(() => {
+    const reveals = document.querySelectorAll('.reveal');
+    const revealOnScroll = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          revealOnScroll.unobserve(entry.target); 
+        }
+      });
+    }, { threshold: 0.10, rootMargin: "0px 0px -50px 0px" });
 
-  const toggle = (id) => setOpenId((cur) => (cur === id ? null : id));
+    reveals.forEach(reveal => revealOnScroll.observe(reveal));
+    return () => revealOnScroll.disconnect();
+  }, []);
 
   return (
     <main className="page" id="history-page">
-
-      {/* HERO */}
       <section className="hist-hero" aria-labelledby="hist-hero-h">
         <div className="hist-hero__grid" aria-hidden="true" />
         <div className="container hist-hero__inner">
-          <span className="hist-hero__eyebrow">30473 · Season Record</span>
-          <h1 id="hist-hero-h" className="hist-hero__title">
+          <span className="hist-hero__eyebrow reveal">30473 : Season Record</span>
+          <h1 id="hist-hero-h" className="hist-hero__title reveal delay-1">
             Competition <span className="acc-yellow">History</span>
           </h1>
-          <p className="hist-hero__sub">
+          <p className="hist-hero__sub reveal delay-2">
             Every match. Every award. Every lesson earned on the field.
             This is how <span className="acc-yellow">Pegasus</span> and Team 30473 compete
             in the East Bay League.
           </p>
 
-          {/* Career stats */}
-          <div className="hist-hero__qs">
+          <div className="hist-hero__qs hover-card reveal delay-3">
             {[
               { val: '1',      key: 'Award Won'     },
               { val: '4',      key: 'Competitions'  },
@@ -521,20 +473,9 @@ export default function History() {
         </div>
       </section>
 
-      {/* ACCORDION */}
-      <section className="hist-acc" aria-label="Season accordion">
-        <div className="hist-acc__list">
-          {SEASONS.map((season) => (
-            <AccordionItem
-              key={season.id}
-              season={season}
-              isOpen={openId === season.id}
-              onToggle={() => toggle(season.id)}
-            />
-          ))}
-        </div>
+      <section className="hist-acc reveal delay-4" aria-label="Season accordion">
+        <AccordionContainer />
       </section>
-
     </main>
   );
 }

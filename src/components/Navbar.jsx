@@ -3,29 +3,29 @@ import { NavLink, Link } from 'react-router-dom';
 import './Navbar.css';
 import SupportModal from './SupportModal';
 
-// Added the Outreach link right here:
 const navLinks = [
   { to: '/',          label: 'Home' },
   { to: '/tech-specs', label: 'Tech Specs' },
   { to: '/history',   label: 'Competition History' },
   { to: '/outreach',  label: 'Outreach' }, 
+  { to: '/sponsors',  label: 'Sponsors' },
 ];
 
 export default function Navbar() {
-  const [scrolled,     setScrolled]     = useState(false);
-  const [menuOpen,     setMenuOpen]     = useState(false);
-  const [isModalOpen,  setIsModalOpen]  = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  /* Shrink navbar on scroll */
+  /* Shrink & blur navbar on scroll */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  /* Close mobile menu on resize */
+  /* Close mobile menu on resize to prevent layout bugs */
   useEffect(() => {
-    const onResize = () => { if (window.innerWidth > 768) setMenuOpen(false); };
+    const onResize = () => { if (window.innerWidth > 860) setMenuOpen(false); };
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, []);
@@ -35,10 +35,9 @@ export default function Navbar() {
       <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`} role="banner">
         <div className="navbar__inner container">
 
-         {/* ── Logo ── */}
+         {/* === Logo === */}
         <Link to="/" className="navbar__logo" aria-label="Team 30473 Home">
           <div className="navbar__logo-icon" aria-hidden="true">
-            {/* Updated to .jpg */}
             <img src="/images/duck.jpg" alt="BASE Robotics Logo" className="navbar__duck-img" />
           </div>
           <div className="navbar__logo-text">
@@ -47,7 +46,7 @@ export default function Navbar() {
           </div>
         </Link>
 
-          {/* ── Desktop Nav Links ── */}
+          {/* === Desktop Nav Links (Absolute Centered) === */}
           <nav className="navbar__links" aria-label="Main navigation">
             {navLinks.map(({ to, label }) => (
               <NavLink
@@ -65,7 +64,7 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* ── CTA ── */}
+          {/* === Desktop CTA === */}
           <button 
             className="btn btn-primary navbar__cta" 
             id="nav-cta-support"
@@ -77,7 +76,7 @@ export default function Navbar() {
             Support Us
           </button>
 
-          {/* ── Hamburger ── */}
+          {/* === Mobile Hamburger === */}
           <button
             className={`navbar__hamburger ${menuOpen ? 'navbar__hamburger--open' : ''}`}
             onClick={() => setMenuOpen(o => !o)}
@@ -92,7 +91,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* ── Mobile Menu ── */}
+        {/* === Mobile Menu Dropdown === */}
         <nav
           id="mobile-menu"
           className={`navbar__mobile ${menuOpen ? 'navbar__mobile--open' : ''}`}
@@ -125,7 +124,7 @@ export default function Navbar() {
         </nav>
       </header>
 
-      {/* ── Support Modal ── */}
+      {/* === Support Modal === */}
       <SupportModal 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 

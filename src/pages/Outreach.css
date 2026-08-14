@@ -1,5 +1,5 @@
 /* ────────────────────────────────────────────────────────────
-   Outreach.css — Edge-to-Edge Desktop Architecture
+   Outreach.css
    ──────────────────────────────────────────────────────────── */
 
 .outreach-page {
@@ -8,7 +8,7 @@
   min-height: 100vh;
 }
 
-/* ── HEADER ── */
+/* Header */
 .outreach__header {
   margin-bottom: 4rem;
 }
@@ -39,7 +39,7 @@
   margin: 0;
 }
 
-/* ── METRICS DASHBOARD ── */
+/* Metrics Dashboard */
 .outreach__metrics-section {
   margin-bottom: 8rem;
 }
@@ -86,7 +86,7 @@
   color: var(--text-dimmer);
 }
 
-/* ── SECTION HEADERS ── */
+/* Section Headers */
 .outreach__section {
   padding-top: 4rem;
   margin-bottom: 6rem;
@@ -115,7 +115,7 @@
   white-space: nowrap;
 }
 
-/* ── COMMUNITY IMPACT GRID (Unified Bento Layout) ── */
+/* Community Impact Grid (Unified Bento Layout) */
 .outreach__grid {
   display: flex;
   flex-direction: column;
@@ -197,7 +197,7 @@
 .outreach__card-index {
   font-family: var(--font-mono);
   font-size: 1.2rem;
-  color: var(--border-default);
+  color: var(--text-dimmer); /* CRITICAL FIX: Changed from --border-default so it is visible! */
   font-weight: 700;
 }
 
@@ -246,7 +246,7 @@
   letter-spacing: 0.05em;
 }
 
-/* ── FTC TEAM GRID (Bento style) ── */
+/* FTC TEAM GRID (Bento style) */
 .outreach__ftc-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -338,7 +338,7 @@
   margin: 0;
 }
 
-/* ── RESPONSIVE DESIGN ── */
+/* RESPONSIVE DESIGN */
 @media (max-width: 1024px) {
   .outreach__card {
     grid-template-columns: 1fr;
