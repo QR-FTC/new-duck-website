@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './History.css';
 
-/* ═══════════════════════════════════════════════════════════
+/* ===============================================================
    SCROLL REVEAL HOOK
    Uses IntersectionObserver — no external libraries
-═══════════════════════════════════════════════════════════ */
+=============================================================== */
 function useReveal(threshold = 0.12) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
@@ -23,125 +23,48 @@ function useReveal(threshold = 0.12) {
   return [ref, visible];
 }
 
-/* ═══════════════════════════════════════════════════════════
+/* ===============================================================
+   TROPHY ICON — inline SVG, no emoji
+=============================================================== */
+function TrophyIcon({ className }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path d="M7 4h10v3a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+      <path d="M7 5H4a3 3 0 0 0 3 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M17 5h3a3 3 0 0 1-3 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M12 12v3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M8 19h8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M9.5 15.5 8 19" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M14.5 15.5 16 19" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+/* ===============================================================
    DATA
-═══════════════════════════════════════════════════════════ */
+   Team 30473 · East Bay League, Dublin CA — exclusively.
+=============================================================== */
 const SEASONS = [
   {
-    id:        'decode',
-    index:     '01',
-    game:      'DECODE',
-    robot:     'Pegasus',
-    yearRange: '2024–2025',
-    seasonTag: 'COMPLETED SEASON',
-    league:    'East Bay League · Dublin, CA',
-    type:      'completed',
-    intro:
-      'Our debut season. Pegasus — engineered from the ground up in OnShape CAD and driven ' +
-      'by a NextFTC Java command-based architecture with Pedro Pathing for trajectory control — ' +
-      'competed in four East Bay League events, went 20 matches strong, and brought home the ' +
-      'FIRST Tech Challenge Connect Award.',
-    stats: [
-      { val: '4',      label: 'Events Competed' },
-      { val: '20',     label: 'Matches Played'  },
-      { val: 'Top 10', label: 'Tournament Rank' },
-      { val: '1',      label: 'Award Won'        },
-    ],
-    award: {
-      icon:  '🏆',
-      name:  'Connect Award',
-      event: 'East Bay League Tournament',
-      desc:
-        'The FIRST Tech Challenge Connect Award recognizes the team that best exemplifies ' +
-        'the FIRST mission — inspiring others to pursue STEM through advocacy, community ' +
-        'partnerships, and outreach. Earning this in our rookie season reflects the work we ' +
-        'put in off the field: founding BASE Robotics, joining the RISE Foundation, and ' +
-        'hosting free STEM workshops across the Tri-Valley.',
-      outreachStats: [
-        { val: '2',    label: 'Nonprofits Founded / Joined' },
-        { val: '100+', label: 'Students Reached'            },
-        { val: '4',    label: 'FTC Teams Assisted'          },
-      ],
-    },
-    events: [
-      {
-        id:      'meet-1',
-        index:   '01',
-        name:    'East Bay League — Meet 1',
-        date:    'Oct 2024',
-        venue:   'East Bay Region, CA',
-        status:  'debut',
-        result:  'Participated',
-        isAward: false,
-        detail:
-          'Pegasus took the competition floor for the very first time. We validated Pedro ' +
-          'Pathing trajectory accuracy in a live-match environment, stress-tested autonomous ' +
-          'routines against real field conditions, and logged critical telemetry data to ' +
-          'drive the next iteration of mechanical and software refinements.',
-      },
-      {
-        id:      'meet-2',
-        index:   '02',
-        name:    'East Bay League — Meet 2',
-        date:    'Nov 2024',
-        venue:   'East Bay Region, CA',
-        status:  'competed',
-        result:  'Participated',
-        isAward: false,
-        detail:
-          'Armed with Meet 1 telemetry and match footage, Pegasus returned with a tighter ' +
-          'Pedro Pathing path set, updated hardware geometry, and improved driver-to-robot ' +
-          'coordination. Autonomous cycle count increased and teleop scoring consistency ' +
-          'improved measurably over the previous outing.',
-      },
-      {
-        id:      'meet-3',
-        index:   '03',
-        name:    'East Bay League — Meet 3',
-        date:    'Dec 2024',
-        venue:   'East Bay Region, CA',
-        status:  'competed',
-        result:  'Participated',
-        isAward: false,
-        detail:
-          'Our most polished regular-season performance. Pinpoint odometry held sub-2 cm ' +
-          'positional accuracy across full-field traversals, and our NextFTC command-based ' +
-          'architecture allowed seamless subsystem handoffs during autonomous. Alliance ' +
-          'coordination reached an all-season high heading into the League Tournament.',
-      },
-      {
-        id:      'tournament',
-        index:   '04',
-        name:    'East Bay League Tournament',
-        date:    'Jan 2025',
-        venue:   'East Bay Region, CA',
-        status:  'award',
-        result:  '🏆 Connect Award',
-        isAward: true,
-        detail:
-          'Pegasus delivered its defining performance: 20 successful matches across 4 ' +
-          'competitions, powered by Pinpoint odometry, Pedro Pathing trajectory generation, ' +
-          'and our NextFTC Java architecture for reliable, repeatable autonomous cycles. ' +
-          'We were selected as the 1st pick of the 3rd Alliance, drove consistent teleop ' +
-          'scoring through the playoff bracket, and finished as the 4th place alliance overall. ' +
-          'The event ended with Team 30473 taking home the FIRST Tech Challenge Connect Award.',
-      },
-    ],
-  },
-  {
     id:        'biobuzz',
-    index:     '02',
+    index:     '01',
     game:      'BIOBUZZ',
     robot:     'TBD',
-    yearRange: '2025–2026',
-    seasonTag: 'UPCOMING SEASON',
+    yearRange: '2026–2027',
+    seasonTag: 'CURRENT SEASON',
     league:    'East Bay League · Dublin, CA',
     type:      'upcoming',
     intro:
-      'Our second season is in active preparation. We are applying every lesson from the ' +
-      'Decode campaign — refining our Pedro Pathing motion profiles, planning a more ' +
-      'aggressive autonomous strategy, and building a stronger mechanical package for the ' +
-      'BIOBUZZ game challenge.',
+      'Our second competitive season is in active development. We are carrying forward what ' +
+      'we learned during the Decode campaign — refined Pedro Pathing motion profiles, a ' +
+      'revised autonomous strategy, and a stronger mechanical package built on our NextFTC ' +
+      'architecture for the Biobuzz game challenge.',
     stats: [
       { val: '4', label: 'Events Scheduled' },
       { val: '—', label: 'Matches Played'   },
@@ -153,77 +76,175 @@ const SEASONS = [
         id:      'biobuzz-meet-1',
         index:   '01',
         name:    'East Bay League — Meet 1',
-        date:    'Fall 2025',
+        date:    'Fall 2026',
         venue:   'East Bay Region, CA',
         status:  'upcoming',
         result:  'TBD',
         isAward: false,
         detail:
-          'Our first official match of the BIOBUZZ season. Hardware and software development ' +
-          'is underway as we adapt our platform architecture to the new game challenge.',
+          'First match of the Biobuzz season. Hardware and software are being adapted to the ' +
+          'new game challenge ahead of Meet 1.',
       },
       {
         id:      'biobuzz-meet-2',
         index:   '02',
         name:    'East Bay League — Meet 2',
-        date:    'Winter 2025',
+        date:    'Winter 2026',
         venue:   'East Bay Region, CA',
         status:  'upcoming',
         result:  'TBD',
         isAward: false,
         detail:
-          'Building on Meet 1 field data, we plan to deploy fully refined autonomous routines ' +
-          'and a competition-hardened scoring mechanism into our second outing.',
+          'Second outing of the season, incorporating field data from Meet 1 into an updated ' +
+          'autonomous routine and scoring mechanism.',
       },
       {
         id:      'biobuzz-meet-3',
         index:   '03',
         name:    'East Bay League — Meet 3',
-        date:    'Winter 2025',
+        date:    'Winter 2026',
         venue:   'East Bay Region, CA',
         status:  'upcoming',
         result:  'TBD',
         isAward: false,
         detail:
-          'Three meets of field data will allow us to push Pedro Pathing trajectory accuracy ' +
-          'and teleop execution to their limits, setting us up for the strongest possible ' +
-          'League Tournament performance.',
+          'Final regular-season meet before the League Tournament, used to lock in trajectory ' +
+          'accuracy and teleop execution.',
       },
       {
         id:      'biobuzz-tournament',
         index:   '04',
         name:    'East Bay League Tournament',
-        date:    'Early 2026',
+        date:    'Early 2027',
         venue:   'East Bay Region, CA',
         status:  'upcoming',
         result:  'TBD',
         isAward: false,
         detail:
-          'Our second League Tournament appearance — the first opportunity to defend the ' +
-          'standard set during the Decode season and push for a deeper alliance playoff run.',
+          'Our second League Tournament appearance — the first chance to build on the standard ' +
+          'set during the Decode season.',
+      },
+    ],
+  },
+  {
+    id:        'decode',
+    index:     '02',
+    game:      'DECODE',
+    robot:     'Pegasus',
+    yearRange: '2025–2026',
+    seasonTag: 'COMPLETED SEASON',
+    league:    'East Bay League · Dublin, CA',
+    type:      'completed',
+    intro:
+      'Our first competitive season. Pegasus was designed in Onshape CAD and built on a ' +
+      'NextFTC Java command-based architecture with Pedro Pathing for autonomous trajectory ' +
+      'control. The robot competed in four East Bay League events, completed 20 matches, and ' +
+      'won the FIRST Tech Challenge Connect Award.',
+    stats: [
+      { val: '4',      label: 'Events Competed' },
+      { val: '20',     label: 'Matches Played'  },
+      { val: 'Top 10', label: 'Tournament Rank' },
+      { val: '1',      label: 'Award Won'        },
+    ],
+    award: {
+      name:  'Connect Award',
+      event: 'East Bay League Tournament',
+      desc:
+        'The FIRST Tech Challenge Connect Award recognizes the team that best exemplifies the ' +
+        'FIRST mission through community outreach and partnership. Team 30473 earned this ' +
+        'award in its rookie season by founding BASE Robotics, joining the RISE Foundation, ' +
+        'and running free STEM workshops across the Tri-Valley.',
+      outreachStats: [
+        { val: '2',    label: 'Nonprofits Founded / Joined' },
+        { val: '100+', label: 'Students Reached'            },
+        { val: '4',    label: 'FTC Teams Assisted'          },
+      ],
+    },
+    events: [
+      {
+        id:      'meet-1',
+        index:   '01',
+        name:    'East Bay League — Meet 1',
+        date:    'Oct 2025',
+        venue:   'East Bay Region, CA',
+        status:  'debut',
+        result:  'Participated',
+        isAward: false,
+        detail:
+          'Pegasus took the competition floor for the first time. We validated Pedro Pathing ' +
+          'trajectory accuracy under live-match conditions and logged telemetry to drive the ' +
+          'next round of mechanical and software refinements.',
+      },
+      {
+        id:      'meet-2',
+        index:   '02',
+        name:    'East Bay League — Meet 2',
+        date:    'Nov 2025',
+        venue:   'East Bay Region, CA',
+        status:  'competed',
+        result:  'Participated',
+        isAward: false,
+        detail:
+          'Using telemetry from Meet 1, Pegasus returned with a tighter Pedro Pathing path set ' +
+          'and updated hardware geometry. Autonomous cycle count and teleop scoring ' +
+          'consistency both improved over the previous outing.',
+      },
+      {
+        id:      'meet-3',
+        index:   '03',
+        name:    'East Bay League — Meet 3',
+        date:    'Dec 2025',
+        venue:   'East Bay Region, CA',
+        status:  'competed',
+        result:  'Participated',
+        isAward: false,
+        detail:
+          'Our most consistent regular-season performance. Pinpoint odometry held sub-2 cm ' +
+          'positional accuracy across full-field traversals heading into the League ' +
+          'Tournament.',
+      },
+      {
+        id:      'tournament',
+        index:   '04',
+        name:    'East Bay League Tournament',
+        date:    'Jan 2026',
+        venue:   'East Bay Region, CA',
+        status:  'award',
+        result:  'Connect Award',
+        isAward: true,
+        detail:
+          'Pegasus executed 20 successful matches at the East Bay League Tournament using ' +
+          'Pinpoint odometry, Pedro Pathing, and our NextFTC architecture. Team 30473 was ' +
+          'selected 1st pick of the 3rd Alliance, finished 4th place alliance overall, and ' +
+          'won the FIRST Tech Challenge Connect Award.',
       },
     ],
   },
 ];
 
-/* ═══════════════════════════════════════════════════════════
+/* ===============================================================
    STATUS TAG
-═══════════════════════════════════════════════════════════ */
+=============================================================== */
 const STATUS_META = {
   debut:    { label: 'Debut',    cls: 'tag--debut'    },
   competed: { label: 'Competed', cls: 'tag--competed' },
-  award:    { label: '🏆 Award', cls: 'tag--award'    },
+  award:    { label: 'Award',    cls: 'tag--award'    },
   upcoming: { label: 'Upcoming', cls: 'tag--upcoming' },
 };
 
 function Tag({ status }) {
   const m = STATUS_META[status] ?? STATUS_META.competed;
-  return <span className={`ev-tag ${m.cls}`}>{m.label}</span>;
+  return (
+    <span className={`ev-tag ${m.cls}`}>
+      {status === 'award' && <TrophyIcon className="ev-tag__icon" />}
+      {m.label}
+    </span>
+  );
 }
 
-/* ═══════════════════════════════════════════════════════════
+/* ===============================================================
    CONNECT AWARD BLOCK
-═══════════════════════════════════════════════════════════ */
+=============================================================== */
 function ConnectAwardBlock({ award, game }) {
   const [ref, visible] = useReveal(0.1);
   return (
@@ -233,10 +254,9 @@ function ConnectAwardBlock({ award, game }) {
       id="connect-award"
       aria-label="Connect Award detail"
     >
-      <div className="award-block__glow" aria-hidden="true" />
       <div className="award-block__inner">
         <div className="award-block__heading">
-          <span className="award-block__trophy" aria-hidden="true">{award.icon}</span>
+          <TrophyIcon className="award-block__trophy" />
           <div>
             <p className="award-block__eyebrow">Highest Achievement · {game} Season</p>
             <h3 className="award-block__title">
@@ -258,9 +278,9 @@ function ConnectAwardBlock({ award, game }) {
   );
 }
 
-/* ═══════════════════════════════════════════════════════════
+/* ===============================================================
    EVENT CARD (inside accordion)
-═══════════════════════════════════════════════════════════ */
+=============================================================== */
 function EventCard({ event, robot, delay }) {
   const [ref, visible] = useReveal(0.08);
 
@@ -315,9 +335,9 @@ function EventCard({ event, robot, delay }) {
   );
 }
 
-/* ═══════════════════════════════════════════════════════════
+/* ===============================================================
    STATS STRIP (inside accordion)
-═══════════════════════════════════════════════════════════ */
+=============================================================== */
 function StatsStrip({ stats }) {
   return (
     <div className="acc-stats" aria-label="Season statistics">
@@ -331,9 +351,9 @@ function StatsStrip({ stats }) {
   );
 }
 
-/* ═══════════════════════════════════════════════════════════
+/* ===============================================================
    ACCORDION ITEM — full-width expandable season block
-═══════════════════════════════════════════════════════════ */
+=============================================================== */
 function AccordionItem({ season, isOpen, onToggle }) {
   const [headerRef, headerVisible] = useReveal(0.1);
   const panelRef = useRef(null);
@@ -352,9 +372,10 @@ function AccordionItem({ season, isOpen, onToggle }) {
   return (
     <div className={`acc-item${isOpen ? ' acc-item--open' : ''}`} id={`acc-${season.id}`}>
 
-      {/* ── ACCORDION HEADER ── */}
+      {/* ACCORDION HEADER */}
       <button
         ref={headerRef}
+        type="button"
         className={`acc-header reveal${headerVisible ? ' revealed' : ''}`}
         onClick={onToggle}
         aria-expanded={isOpen}
@@ -366,7 +387,7 @@ function AccordionItem({ season, isOpen, onToggle }) {
           {season.index}
         </span>
 
-        {/* Center: season identity */}
+        {/* Center: season identity (stacked: yearRange + seasonTag above game name) */}
         <div className="acc-header__identity">
           <span className="acc-header__supertitle">
             {season.yearRange}&nbsp;&nbsp;•&nbsp;&nbsp;{season.seasonTag}
@@ -391,7 +412,7 @@ function AccordionItem({ season, isOpen, onToggle }) {
         </div>
       </button>
 
-      {/* ── ACCORDION PANEL ── */}
+      {/* ACCORDION PANEL */}
       <div
         ref={panelRef}
         id={`acc-panel-${season.id}`}
@@ -418,13 +439,13 @@ function AccordionItem({ season, isOpen, onToggle }) {
           {/* Award pill */}
           {season.award && (
             <div className="acc-award-pill">
-              <span className="acc-award-pill__icon" aria-hidden="true">{season.award.icon}</span>
+              <TrophyIcon className="acc-award-pill__icon" />
               <span className="acc-award-pill__name">{season.award.name}</span>
               <span className="acc-award-pill__event">{season.award.event}</span>
             </div>
           )}
 
-          {/* Event cards */}
+          {/* Event cards — CSS Grid layout inside each card */}
           <div className="acc-panel__feed" role="list" aria-label={`${season.game} events`}>
             <p className="acc-panel__feed-label">Event Feed</p>
             {season.events.map((event, i) => (
@@ -455,20 +476,19 @@ function AccordionItem({ season, isOpen, onToggle }) {
   );
 }
 
-/* ═══════════════════════════════════════════════════════════
+/* ===============================================================
    PAGE
-═══════════════════════════════════════════════════════════ */
+=============================================================== */
 export default function History() {
-  const [openId, setOpenId] = useState('decode');
+  const [openId, setOpenId] = useState('biobuzz');
 
   const toggle = (id) => setOpenId((cur) => (cur === id ? null : id));
 
   return (
     <main className="page" id="history-page">
 
-      {/* ── HERO ── */}
+      {/* HERO */}
       <section className="hist-hero" aria-labelledby="hist-hero-h">
-        <div className="hist-hero__bg"   aria-hidden="true" />
         <div className="hist-hero__grid" aria-hidden="true" />
         <div className="container hist-hero__inner">
           <span className="hist-hero__eyebrow">30473 · Season Record</span>
@@ -477,16 +497,17 @@ export default function History() {
           </h1>
           <p className="hist-hero__sub">
             Every match. Every award. Every lesson earned on the field.
-            This is how <span className="acc-yellow">Pegasus</span> and Team 30473 compete.
+            This is how <span className="acc-yellow">Pegasus</span> and Team 30473 compete
+            in the East Bay League.
           </p>
 
           {/* Career stats */}
           <div className="hist-hero__qs">
             {[
-              { val: '1',      key: 'Award Won'      },
-              { val: '4',      key: 'Meets Competed' },
-              { val: '2025',   key: 'Rookie Year'    },
-              { val: 'Decode', key: 'Last Season'    },
+              { val: '1',      key: 'Award Won'     },
+              { val: '4',      key: 'Competitions'  },
+              { val: '2025',   key: 'Rookie Year'   },
+              { val: 'Decode', key: 'Last Season'   },
             ].map(({ val, key }, i) => (
               <React.Fragment key={key}>
                 {i > 0 && <div className="hist-hero__qs-div" aria-hidden="true" />}
@@ -500,7 +521,7 @@ export default function History() {
         </div>
       </section>
 
-      {/* ── ACCORDION ── */}
+      {/* ACCORDION */}
       <section className="hist-acc" aria-label="Season accordion">
         <div className="hist-acc__list">
           {SEASONS.map((season) => (

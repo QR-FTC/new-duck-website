@@ -1,0 +1,213 @@
+/* ────────────────────────────────────────────────────────────
+   SupportModal.css
+   Tokens: bg #0F172A · panel #111827 · border #1E293B
+           accent (duck yellow) #F5C400
+           text primary #E2E8F0 · text muted #94A3B8
+   ──────────────────────────────────────────────────────────── */
+
+.support-modal__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: support-modal-fade 0.2s ease;
+}
+
+@keyframes support-modal-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.support-modal {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  background: #111827;
+  border: 1px solid #1e293b;
+  padding: 40px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #e2e8f0;
+  animation: support-modal-rise 0.25s ease;
+}
+
+@keyframes support-modal-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .support-modal__backdrop,
+  .support-modal {
+    animation: none;
+  }
+}
+
+.support-modal__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid #1e293b;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.support-modal__close:hover,
+.support-modal__close:focus-visible {
+  color: #f5c400;
+  border-color: #f5c400;
+  outline: none;
+}
+
+.support-modal__eyebrow {
+  display: inline-block;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: #f5c400;
+  margin-bottom: 14px;
+}
+
+.support-modal__title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0 0 24px 0;
+  text-transform: uppercase;
+  padding-right: 32px;
+}
+
+.support-modal__section {
+  border-top: 1px solid #1e293b;
+  padding-top: 24px;
+}
+
+.support-modal__section-title {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #f5c400;
+  margin: 0 0 12px 0;
+}
+
+.support-modal__body {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #cbd5e1;
+  margin: 0 0 16px 0;
+}
+
+.support-modal__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.support-modal__list-item {
+  position: relative;
+  padding-left: 20px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: #cbd5e1;
+}
+
+.support-modal__list-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 8px;
+  height: 1px;
+  background: #f5c400;
+}
+
+.support-modal__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 32px;
+}
+
+.support-modal__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px 20px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.support-modal__btn--primary {
+  background: #f5c400;
+  color: #0f172a;
+  border-color: #f5c400;
+}
+
+.support-modal__btn--primary:hover,
+.support-modal__btn--primary:focus-visible {
+  background: #ffd633;
+  border-color: #ffd633;
+  outline: none;
+}
+
+.support-modal__btn--secondary {
+  background: transparent;
+  color: #94a3b8;
+  border-color: #1e293b;
+}
+
+.support-modal__btn--secondary:hover,
+.support-modal__btn--secondary:focus-visible {
+  color: #e2e8f0;
+  border-color: #94a3b8;
+  outline: none;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 520px) {
+  .support-modal {
+    padding: 28px 22px;
+  }
+
+  .support-modal__title {
+    font-size: 24px;
+  }
+}   

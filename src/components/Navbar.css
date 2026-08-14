@@ -190,3 +190,85 @@
   .navbar__hamburger,
   .navbar__mobile { display: flex; }
 }
+/* ── Override: Duck Logo Sizing ── */
+.navbar__duck-img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 6px; /* Optional: adds a slight curve to the corners */
+}
+
+/* Removes the yellow background if it's currently hardcoded into the icon div */
+.navbar__logo-icon {
+  background: transparent !important;
+}
+/* ── OVERRIDE: NAVBAR SIZING & CENTERING ── */
+
+/* 1. Ensure the parent container can anchor the centered links */
+.navbar,
+.navbar__container { 
+  position: relative !important; 
+}
+
+/* 2. Size up the Duck logo */
+.navbar__duck-img {
+  width: 52px !important; /* Bumped up from 36px */
+  height: 52px !important;
+  object-fit: contain;
+  border-radius: 50%; /* Optional: Makes the black background a perfect circle */
+}
+
+/* 3. Size up the Logo Text */
+.navbar__logo-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.navbar__logo-name {
+  font-size: 24px !important;
+  font-weight: 800 !important;
+  letter-spacing: 1px !important;
+  line-height: 1.1 !important;
+}
+
+.navbar__logo-number {
+  font-size: 14px !important;
+  letter-spacing: 3px !important;
+}
+
+/* 4. Perfectly center the navigation links (Desktop Only) */
+/* Note: If your links use a different class name, swap out '.navbar__links' */
+@media (min-width: 860px) {
+  .navbar__links,
+  .navbar__menu,
+  nav ul { 
+    position: absolute !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    display: flex !important;
+    gap: 3rem !important; /* Gives the links plenty of breathing room */
+    align-items: center;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+/* 5. Size up the Navigation Links */
+.navbar__links a,
+.navbar__menu a,
+nav ul li a {
+  font-size: 18px !important; /* Bumps text size up */
+  font-weight: 500 !important;
+  letter-spacing: 0.5px !important;
+  transition: all 0.2s ease;
+}
+
+/* 6. Beef up the "Support Us" Button */
+.navbar__button, 
+.navbar__btn,
+.btn {
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  padding: 12px 28px !important; /* Makes the physical button block wider and taller */
+  letter-spacing: 0.5px !important;
+}

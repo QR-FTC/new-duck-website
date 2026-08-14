@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 
@@ -8,42 +8,36 @@ import './Home.css';
 function HeroSection() {
   return (
     <section className="hero" aria-labelledby="hero-headline">
-      {/* Background decorations */}
       <div className="hero__bg-grid"  aria-hidden="true" />
       <div className="hero__bg-glow"  aria-hidden="true" />
       <div className="hero__stripe hero__stripe--1" aria-hidden="true" />
       <div className="hero__stripe hero__stripe--2" aria-hidden="true" />
 
       <div className="container hero__content">
-
-        {/* ── Left: Copy ── */}
-        <div className="hero__text animate-fadeInLeft">
-          <p className="label-tag animate-fadeInUp delay-1">
+        <div className="hero__text reveal">
+          <p className="label-tag reveal delay-1">
             ◈ FIRST Tech Challenge · Dublin, CA
           </p>
 
-          <h1
-            id="hero-headline"
-            className="headline headline-xl hero__headline animate-fadeInUp delay-2"
-          >
+          <h1 id="hero-headline" className="headline headline-xl hero__headline reveal delay-2">
             Welcome to<br />
             <span className="text-yellow">FTC Team</span><br />
             <span className="hero__number">30473</span>
           </h1>
 
-          <p className="hero__tagline animate-fadeInUp delay-3">
+          <p className="hero__tagline reveal delay-3">
             We are a competitive robotics team pushing the boundaries of mechanical design
             and software engineering in the FIRST Tech Challenge. From prototyping custom
             drivetrains to writing precise autonomous routines in Java, we are dedicated to
             building high-performance robots for the competition field.
           </p>
-          <p className="hero__tagline animate-fadeInUp delay-3" style={{ marginTop: '1rem' }}>
+          <p className="hero__tagline reveal delay-3" style={{ marginTop: '1rem' }}>
             Whether we are refining our mechanisms in the shop, debugging code on the fly,
             or tracking our tournament advancements, our focus is always on execution,
             innovation, and pushing our limits.
           </p>
 
-          <div className="hero__actions animate-fadeInUp delay-4">
+          <div className="hero__actions reveal delay-4">
             <a
               href="https://www.firstinspires.org/donate"
               target="_blank"
@@ -53,17 +47,12 @@ function HeroSection() {
             >
               ★ Support Our Journey
             </a>
-            <Link
-              to="/tech-specs"
-              className="btn btn-outline"
-              id="hero-cta-techspecs"
-            >
+            <Link to="/tech-specs" className="btn btn-outline" id="hero-cta-techspecs">
               View Tech Specs →
             </Link>
           </div>
 
-          {/* Quick stats */}
-          <div className="hero__stats animate-fadeInUp delay-5">
+          <div className="hero__stats reveal delay-5">
             {[
               { val: '30473', label: 'Team #'         },
               { val: '2025',  label: 'Rookie Season'  },
@@ -78,8 +67,7 @@ function HeroSection() {
           </div>
         </div>
 
-        {/* ── Right: Action Shot Placeholder ── */}
-        <div className="hero__visual animate-fadeInUp delay-3">
+        <div className="hero__visual reveal delay-3">
           <div className="hero__img-frame">
             <div className="hero__img-corner hero__img-corner--tl" aria-hidden="true" />
             <div className="hero__img-corner hero__img-corner--br" aria-hidden="true" />
@@ -98,16 +86,13 @@ function HeroSection() {
           </div>
         </div>
       </div>
-
-      <div className="hero__bottom-cut" aria-hidden="true" />
     </section>
   );
 }
 
 /* ──────────────────────────────────────────────────────────
-   COMMUNITY IMPACT — "Beyond the Robot"
+   COMMUNITY IMPACT
 ────────────────────────────────────────────────────────── */
-
 const topStats = [
   { val: '2',    label: 'Nonprofits Backed'  },
   { val: '2',    label: 'School Workshops'   },
@@ -149,23 +134,19 @@ const initiatives = [
 function CommunityImpact() {
   return (
     <section className="impact section" aria-labelledby="impact-heading">
-      <div className="skew-stripe" aria-hidden="true" />
-
       <div className="container section-inner">
-        {/* Section label */}
-        <div className="section-label">
+        <div className="section-label reveal">
           <span className="label-tag">Community Impact</span>
         </div>
 
-        <h2 id="impact-heading" className="headline headline-lg impact__heading">
+        <h2 id="impact-heading" className="headline headline-lg impact__heading reveal">
           Beyond the <span className="text-yellow">Robot</span>
         </h2>
-        <p className="impact__sub text-muted">
+        <p className="impact__sub text-muted reveal">
           Competition wins are milestones. Building the next generation of engineers is our mission.
         </p>
 
-        {/* Stat bar */}
-        <div className="impact__stats" aria-label="Key community impact statistics">
+        <div className="impact__stats reveal" aria-label="Key community impact statistics">
           {topStats.map(({ val, label }) => (
             <div key={label} className="impact__stat-item">
               <span className="impact__stat-val">{val}</span>
@@ -174,91 +155,18 @@ function CommunityImpact() {
           ))}
         </div>
 
-        {/* Initiative cards */}
         <div className="impact__cards">
           {initiatives.map(({ id, icon, tag, title, body }, i) => (
             <div
               key={id}
               id={id}
-              className={`impact__card card animate-fadeInUp delay-${(i % 5) + 1}`}
+              className={`impact__card card hover-card reveal`}
+              style={{ transitionDelay: `${(i % 5) * 90}ms` }}
             >
               <div className="impact__card-icon" aria-hidden="true">{icon}</div>
               <p className="label-tag impact__card-tag">{tag}</p>
               <h3 className="headline headline-sm impact__card-title">{title}</h3>
               <p className="impact__card-body">{body}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ──────────────────────────────────────────────────────────
-   OUTREACH SECTION
-────────────────────────────────────────────────────────── */
-const outreachCards = [
-  {
-    id:    'outreach-emerald',
-    icon:  '🔬',
-    school: 'Emerald High School',
-    body: (
-      <>
-        Our team inspired STEM and robotics in our community by collaborated with the{' '}
-        <strong>Emerald High School Engineering competition team</strong>, showing them our
-        robot, engineering process, the different subsystems present, and the code behind the
-        robot. We helped them use the information in their{' '}
-        <strong>MIT InvenTeams</strong> and <strong>Samsung Solve for Tomorrow</strong>{' '}
-        competitions.
-      </>
-    ),
-  },
-  {
-    id:    'outreach-foothill',
-    icon:  '🚀',
-    school: 'Foothill High School',
-    body: (
-      <>
-        Our team also reached out to the{' '}
-        <strong>Foothill High School Rocketry Club</strong>, providing them a free workshop
-        where we explained how <strong>physics concepts</strong> can be used for rocket
-        efficiency and to achieve more height. We also presented to them our robot, explaining
-        the major components and code behind it. They applied these learned concepts to the{' '}
-        <strong>American Rocketry competition</strong> while also checking our robot and
-        providing us design suggestions.
-      </>
-    ),
-  },
-];
-
-function OutreachSection() {
-  return (
-    <section className="outreach section" aria-labelledby="outreach-heading">
-      <div className="container">
-        <div className="section-label">
-          <span className="label-tag">Community Outreach</span>
-        </div>
-
-        <h2 id="outreach-heading" className="headline headline-lg outreach__heading">
-          Beyond the <span className="text-yellow">Competition Floor</span>
-        </h2>
-        <p className="outreach__sub text-muted">
-          Sharing knowledge, inspiring students, and strengthening the STEM community
-          across the Tri-Valley.
-        </p>
-
-        <div className="outreach__cards">
-          {outreachCards.map(({ id, icon, school, body }, i) => (
-            <div
-              key={id}
-              id={id}
-              className={`outreach__card card animate-fadeInUp delay-${i + 1}`}
-            >
-              <div className="outreach__card-header">
-                <span className="outreach__card-icon" aria-hidden="true">{icon}</span>
-                <span className="label-tag outreach__card-tag">{school}</span>
-              </div>
-              <p className="outreach__card-body">{body}</p>
             </div>
           ))}
         </div>
@@ -274,24 +182,21 @@ function EngineeringTeaser() {
   return (
     <section className="eng-teaser section" aria-labelledby="eng-heading">
       <div className="container">
-        <div className="section-label">
+        <div className="section-label reveal">
           <span className="label-tag">Engineering</span>
         </div>
 
-        <h2 id="eng-heading" className="headline headline-lg eng-teaser__heading">
+        <h2 id="eng-heading" className="headline headline-lg eng-teaser__heading reveal">
           Built from the <span className="text-yellow">Ground Up</span>
         </h2>
-        <p className="eng-teaser__sub text-muted">
+        <p className="eng-teaser__sub text-muted reveal">
           We prototype custom drivetrains in CAD, write precise autonomous routines in Java,
           and use the NextFTC architecture to build scalable, competition-ready software.
           Execution isn't an afterthought — it's the entire design philosophy.
         </p>
 
         <div className="eng-teaser__grid">
-
-          {/* Card 1 — Chassis */}
-          <div className="eng-teaser__card card" id="eng-card-chassis">
-            <div className="eng-teaser__card-accent" aria-hidden="true" />
+          <div className="eng-teaser__card card hover-card reveal" id="eng-card-chassis">
             <div className="eng-teaser__card-top">
               <img
                 src="https://via.placeholder.com/560x320/111111/F5C400?text=CHASSIS+CAD+RENDER"
@@ -321,9 +226,7 @@ function EngineeringTeaser() {
             </div>
           </div>
 
-          {/* Card 2 — Software */}
-          <div className="eng-teaser__card card" id="eng-card-software">
-            <div className="eng-teaser__card-accent" aria-hidden="true" />
+          <div className="eng-teaser__card card hover-card reveal" id="eng-card-software" style={{ transitionDelay: '90ms' }}>
             <div className="eng-teaser__card-top">
               <div className="eng-teaser__code-preview">
                 <div className="eng-teaser__code-bar" aria-hidden="true">
@@ -336,7 +239,6 @@ public class DuckAutonomous extends LinearOpMode {
 
   @Override
   public void runOpMode() {
-    // NextFTC command-based init
     CommandScheduler scheduler = new CommandScheduler();
 
     DriveSubsystem drive  = new DriveSubsystem(hardwareMap);
@@ -345,8 +247,8 @@ public class DuckAutonomous extends LinearOpMode {
 
     scheduler.schedule(
       new SequentialCommandGroup(
-        new DriveToScoringZone(drive),   // Pedro Pathing trajectory
-        new ExtendLiftCommand(lift, 920),// mm — max height
+        new DriveToScoringZone(drive),
+        new ExtendLiftCommand(lift, 920),
         new PlaceSampleCommand(claw),
         new RetractAndPark(drive, lift)
       )
@@ -368,7 +270,7 @@ public class DuckAutonomous extends LinearOpMode {
                 Our autonomous routines are written in Java using the NextFTC command-based
                 architecture. We integrate Pedro Pathing for advanced trajectory generation,
                 smooth motion profiling, and two-wheel odometry localization accurate to
-                ±2 cm per field traversal — enabling reliable multi-cycle autonomous runs.
+                ±2 cm per field traversal.
               </p>
               <ul className="eng-teaser__bullets">
                 <li>NextFTC command-based Java architecture</li>
@@ -380,7 +282,7 @@ public class DuckAutonomous extends LinearOpMode {
           </div>
         </div>
 
-        <div className="eng-teaser__cta">
+        <div className="eng-teaser__cta reveal">
           <Link to="/tech-specs" className="btn btn-primary" id="eng-cta-techspecs">
             Explore Full Tech Specs →
           </Link>
@@ -394,11 +296,32 @@ public class DuckAutonomous extends LinearOpMode {
    PAGE EXPORT
 ────────────────────────────────────────────────────────── */
 export default function Home() {
+  useEffect(() => {
+    const reveals = document.querySelectorAll('.reveal');
+
+    const revealOnScroll = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          revealOnScroll.unobserve(entry.target); 
+        }
+      });
+    }, { 
+      threshold: 0.10, 
+      rootMargin: "0px 0px -50px 0px" /* CRITICAL FIX: Delays animation until element is deeply in view */
+    });
+
+    reveals.forEach(reveal => {
+      revealOnScroll.observe(reveal);
+    });
+    
+    return () => revealOnScroll.disconnect();
+  }, []);
+
   return (
     <main className="page" id="home-page">
       <HeroSection />
       <CommunityImpact />
-      <OutreachSection />
       <EngineeringTeaser />
     </main>
   );
